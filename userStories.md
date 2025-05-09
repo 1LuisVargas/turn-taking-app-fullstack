@@ -14,5 +14,5 @@
 
 ## Extra Credit
 
-1. As a registering user, I want to confirm that the account has been created by a confirmation email.
+1. As a registering user, I want to get a confirmation email when an appointment has been confirmed.
 2. As a registered user, I want to be able to upload a profile picture.
