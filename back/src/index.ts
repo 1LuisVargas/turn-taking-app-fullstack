@@ -1,29 +1,8 @@
-//Just testing typescript
+// Importing modules
+import {PORT} from "./config/envs";
+import app from "./server";
 
-interface IUser {
-    email: string;
-    password: string;
-}
-
-enum Role {
-    USER = 'user',
-    ADMIN = 'admin'
-}
-
-interface IAdmin extends IUser {
-    role: Role;
-}
-
-const admin: IAdmin = {
-    email: 'luis@gmail.com',
-    password: '123',
-    role: Role.ADMIN
-}
-
-const user: IUser = {
-    email: 'luis@gmail.com',
-    password: '123'
-}
-
-console.log(user);
-console.log(admin);
+// Starting the server
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
