@@ -1,5 +1,5 @@
 //Created new user interface
-interface IUser {
+export interface IUser {
     id: number;
     name: string;
     email: string;
@@ -8,7 +8,7 @@ interface IUser {
     credentialsId: number;
 }
 
-const users: IUser[] = [
+export const users: IUser[] = [
     {
         id: 1,
         name: "test1",
@@ -34,5 +34,3 @@ const users: IUser[] = [
         credentialsId: 3
     }
 ];
-
-export default IUser;

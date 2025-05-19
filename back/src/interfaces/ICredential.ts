@@ -1,5 +1,5 @@
 //Created new credential interface
-interface ICredential {
+export interface ICredential {
     id: number;
     username: string;
     password: string;
