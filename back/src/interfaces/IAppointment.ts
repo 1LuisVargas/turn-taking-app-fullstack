@@ -1,5 +1,10 @@
+import { stat } from "fs";
+
 // Created new data type
-export type status = "active" | "cancelled";
+export enum status {
+  active = "active",
+  cancelled = "cancelled"
+}
 
 // Created new appointment interface
 export interface IAppointment {
@@ -16,20 +21,20 @@ export const appointments: IAppointment[] = [
       date: new Date(),
       time: "10:00",
       userId: 2,
-      status: "active"
+      status: status.active
     },
     {
       id: 2,
       date: new Date(),
       time: "11:00",
       userId: 2,
-      status: "active"
+      status: status.active
     },
     {
       id: 3,
       date: new Date(),
       time: "12:00",
       userId: 3,
-      status: "active"
+      status: status.active
     }
   ];

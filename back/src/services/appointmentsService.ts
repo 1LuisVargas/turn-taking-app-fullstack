@@ -2,6 +2,7 @@
 import { Request, Response } from "express";
 import { appointments } from "../interfaces/IAppointment";
 import { IAppointment } from "../interfaces/IAppointment";
+import { status } from "../interfaces/IAppointment";
 
 export const getAllAppointments = async (_req: Request, res: Response) => {
     const allAppointments: IAppointment[] = appointments;
@@ -28,7 +29,7 @@ export const createAppointment = async (_req: Request, res: Response) => {
         date: new Date(),
         time: "10:00",
         userId: requesterID,
-        status: "active"
+        status: status.active
     }
     appointments.push(appointment);
     return res.status(201).send(appointment);
@@ -39,7 +40,7 @@ export const createAppointment = async (_req: Request, res: Response) => {
     const requesterID = 3;
     const appointment = appointments.find((appointment: IAppointment) => appointment.id === requesterID);
     if (appointment) {
-        appointment.status = "cancelled";
+        appointment.status = status.cancelled;
         return res.status(201).send(appointment);
     }
     else{
