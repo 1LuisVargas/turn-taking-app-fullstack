@@ -41,13 +41,14 @@ export const createAppointment = async (appointment: ICreateAppointmentDTO) : Pr
 
 // Canceling an appointment service
  export const cancelAppointment = async (id:number) : Promise<IAppointment["id"]> => {
-    const cancelledAppointment = appointmentsDB.find((appointment: IAppointment) => appointment.id === id);
-    //If the appointment is found, change the status to cancelled, else throw an error
-    if (cancelledAppointment) {
-        cancelledAppointment.status = appointmentStatus.cancelled;
-        return cancelledAppointment.id;
+    // Checking if the appointment exists
+    const foundAppointment : IAppointment | undefined = await getAppointmentByID(id);
+    //If the appointment is already cancelled throw an error, else set the status to cancelled
+    if (foundAppointment.status === appointmentStatus.cancelled) {
+        throw new Error("Appointment already cancelled");
     }
-    else{
-        throw new Error("Appointment not found");
+    else if (foundAppointment) {
+        foundAppointment.status = appointmentStatus.cancelled;
     }
-};
+    return foundAppointment.id;
+}
