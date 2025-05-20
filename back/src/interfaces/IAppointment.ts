@@ -1,7 +1,5 @@
-import { stat } from "fs";
-
-// Created new data type
-export enum status {
+// Created new enum for status
+export enum appointmentStatus {
   active = "active",
   cancelled = "cancelled"
 }
@@ -9,32 +7,8 @@ export enum status {
 // Created new appointment interface
 export interface IAppointment {
     id: number;
-    date: Date;
+    date: string; //TODO: change to Date once using postgres
     time: string;
     userId: number;
-    status: status;
+    status: appointmentStatus;
   }
-  
-export const appointments: IAppointment[] = [
-    {
-      id: 1,
-      date: new Date(),
-      time: "10:00",
-      userId: 2,
-      status: status.active
-    },
-    {
-      id: 2,
-      date: new Date(),
-      time: "11:00",
-      userId: 2,
-      status: status.active
-    },
-    {
-      id: 3,
-      date: new Date(),
-      time: "12:00",
-      userId: 3,
-      status: status.active
-    }
-  ];
