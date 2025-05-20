@@ -8,7 +8,7 @@ import {
 } from "../services/appointmentsService";
 import { IAppointment } from "../interfaces/IAppointment";
 
-// GET
+// Get all appointments
 export const getAppointmentsController = async (
   _req: Request,
   res: Response
@@ -26,6 +26,8 @@ export const getAppointmentsController = async (
     });
   }
 };
+
+// Get appointment by ID
 export const getAppointmentByIdController = async (
   req: Request,
   res: Response
@@ -46,7 +48,7 @@ export const getAppointmentByIdController = async (
     }
 };
 
-// POST
+// Create appointment
 export const createAppointmentController = async (
   req: Request,
   res: Response
@@ -66,7 +68,7 @@ export const createAppointmentController = async (
     }
 };
 
-// PUT
+// Cancel appointment
 export const CancelAppointmentController = async (
   req: Request,
   res: Response
@@ -74,7 +76,7 @@ export const CancelAppointmentController = async (
     try {
         //const id: number = Number(req.params.id);
         const appointmentID: number = await cancelAppointment(Number(req.params.id));
-        res.status(200).json({
+        res.status(201).json({
             success: true,
             data: appointmentID,
         });

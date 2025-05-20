@@ -1,18 +1,74 @@
 // Importing modules
 import { Request, Response } from "express";
+import { getUsers, getUserByID, createUser } from "../services/usersService";
+import { checkCredentials } from "../services/credentialsService";
+import IUser from "../interfaces/IUser";
 
 // GET
+
+// Get all users
 export const getUsersController = async (_req: Request, res: Response) => {
-  res.status(200).send("Get the list of all users");
-};
-export const getUserByIdController = async (_req: Request, res: Response) => {
-  res.status(200).send("Get the details for one specific user");
+  try {
+    const users: IUser[] = await getUsers();
+    res.status(200).json({
+      success: true,
+      data: users,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
 };
 
-// POST
-export const registerUserController = async (_req: Request, res: Response) => {
-  res.status(201).send("Register a new user");
+// Get user by ID
+export const getUserByIdController = async (req: Request, res: Response) => {
+  try {
+    const user: IUser = await getUserByID(Number(req.params.id));
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
 };
-export const loginUserController = async (_req: Request, res: Response) => {
-  res.status(204).send("Login a user");
+
+// Create user
+export const registerUserController = async (req: Request, res: Response) => {
+  try {
+    const newUser: IUser = await createUser(req.body);
+    res.status(201).json({
+      success: true,
+      data: newUser,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+// Login user
+export const loginUserController = async (req: Request, res: Response) => {
+  try {
+    const credentialId: number = await checkCredentials(
+      req.body.username,
+      req.body.password
+    );
+    res.status(200).json({
+      success: true,
+      data: credentialId,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
 };
