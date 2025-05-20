@@ -1,9 +1,11 @@
-interface createUserDTO {
+//Created new user interface DTO
+interface ICreateUserDTO {
     name: "string",
     email: "string",
-    birthday: "string",
+    birthdate: "string", //TODO: Change to Date once using postgres
     Dni: "number",
-    credentialsId: "number"
+    username: "string",
+    password: "string"
 }
 
-export default createUserDTO;
+export default ICreateUserDTO;
