@@ -7,11 +7,13 @@ let credentialId: number = 1;
 
 //Service to create a new credential
 export const createCredential = async (username: string, password: string):Promise<ICredential["id"]> => {
+    //Creating the new credential
     const newCredential: ICredential = {
         id: credentialId,
         username: username,
         password: password
     }
+    //Pushing the new credential to the DB and incrementing the credential ID
     credentialsDB.push(newCredential);
     credentialId++;
     return newCredential.id;
