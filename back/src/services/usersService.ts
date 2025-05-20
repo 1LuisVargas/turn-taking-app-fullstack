@@ -1,4 +1,4 @@
-import { IUser  } from "../interfaces/IUser";
+import IUser from "../interfaces/IUser";
 import createUserDTO from "../dtos/createUserDTO";
 import { createCredential } from "./credentialsService";
 

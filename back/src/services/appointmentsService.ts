@@ -1,8 +1,6 @@
 // Importing modules
 import { Request, Response } from "express";
-import { appointments } from "../interfaces/IAppointment";
-import { IAppointment } from "../interfaces/IAppointment";
-import { status } from "../interfaces/IAppointment";
+import { IAppointment, appointmentStatus } from "../interfaces/IAppointment";
 
 export const getAllAppointments = async (_req: Request, res: Response) => {
     const allAppointments: IAppointment[] = appointments;
