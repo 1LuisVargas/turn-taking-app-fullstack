@@ -1,6 +1,10 @@
+// Importing modules
 import { DataSource } from "typeorm";
 import { DB_HOST, DB_PORT, DB_NAME, DB_PASSWORD, DB_USERNAME } from "./envs";
+import User from "../entities/User";
+import Appointment from "../entities/Appointment";
 
+// Set DataSource
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: DB_HOST,
@@ -10,7 +14,7 @@ export const AppDataSource = new DataSource({
     database: DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [],
+    entities: [Credential, User, Appointment],
     subscribers: [],
     migrations: [],
 })
