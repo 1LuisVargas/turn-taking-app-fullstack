@@ -1,5 +1,6 @@
 //Importing modules
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import User from "./User";
 
 //Created new appointment entity
 @Entity({ name: "appointments" })
@@ -29,6 +30,10 @@ class Appointment {
     },
   })
   status: string;
+
+  //User relationship
+  @ManyToOne(() => User, (user) => user.appointments)
+  user: User;
 }
 
 export default Appointment;

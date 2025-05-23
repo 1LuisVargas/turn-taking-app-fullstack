@@ -3,9 +3,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import Credential from "./Credential";
+import Appointment from "./Appointment";
 
 //Created new user entity
 @Entity({
@@ -38,9 +41,14 @@ class User {
   })
   Dni: number;
 
+  //Credential relation
   @OneToOne(() => Credential)
   @JoinColumn()
   credential: Credential;
+
+  //Appointment relation
+  @OneToMany(() => Appointment, (appointment) => appointment.user)
+  appointments: Appointment[];
 }
 
 export default User;
