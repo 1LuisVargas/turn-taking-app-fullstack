@@ -1,9 +1,17 @@
 // Importing modules
-import {PORT} from "./config/envs";
+import { AppDataSource } from "./config/data-source";
+import { PORT } from "./config/envs";
 import app from "./server";
 import "reflect-metadata";
 
 // Starting the server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization", err);
+  });

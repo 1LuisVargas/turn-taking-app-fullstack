@@ -38,7 +38,7 @@ class User {
   })
   Dni: number;
 
-  @OneToOne(() => Credential, (credential) => credential.id)
+  @OneToOne(() => Credential)
   @JoinColumn()
   credential: Credential;
 }
