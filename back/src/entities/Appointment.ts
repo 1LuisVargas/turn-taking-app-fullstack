@@ -1,28 +1,34 @@
+//Importing modules
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("appointments")
+//Created new appointment entity
+@Entity({ name: "appointments" })
 class Appointment {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
-    @Column()
-  date: string; //TODO: change to Date once using postgres
-  
   @Column()
+  date: string; //TODO: change to Date
+
+  @Column({
+    length: 5,
+  })
   time: string;
 
-  @Column()
+  @Column({
+    length: 5,
+    type: "int",
+  })
   userId: number;
-  
+
   @Column({
     type: "enum",
-    enum: 
-    {
+    enum: {
       ACTIVE: "active",
-      CANCELLED: "cancelled"
-    }
+      CANCELLED: "cancelled",
+    },
   })
-  status: string
+  status: string;
 }
 
 export default Appointment;

@@ -1,34 +1,46 @@
 //Importing modules
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 //Created new user entity
 @Entity({
-    name: "users",
+  name: "users",
 })
-class User{
-    @PrimaryGeneratedColumn()
-    id: number;
+class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column({
+    length: 50,
+  })
+  name: string;
 
-    @Column({
-        unique: true,
-    })
-    email: string;
+  @Column({
+    length: 100,
+    unique: true,
+  })
+  email: string;
 
-    @Column()
-    birthdate: string; //TODO: Change to Date once using postgres
-    
-    @Column({
-        type: "int",
-        unique: true,
-    })
-    Dni: number;
+  @Column({
+    length: 10,
+  })
+  birthdate: string; //TODO: Change to Date
 
-    @OneToOne(() => Credential, (credential) => credential.id)
-    @JoinColumn()
-    credential: Credential
+  @Column({
+    length: 10,
+    type: "int",
+    unique: true,
+  })
+  Dni: number;
+
+  @OneToOne(() => Credential, (credential) => credential.id)
+  @JoinColumn()
+  credential: Credential;
 }
 
 export default User;
