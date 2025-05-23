@@ -35,7 +35,6 @@ class User {
   birthdate: string; //TODO: Change to Date
 
   @Column({
-    length: 10,
     type: "int",
     unique: true,
   })

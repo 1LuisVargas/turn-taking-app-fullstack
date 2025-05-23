@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import { DB_HOST, DB_PORT, DB_NAME, DB_PASSWORD, DB_USERNAME } from "./envs";
 import User from "../entities/User";
 import Appointment from "../entities/Appointment";
+import Credential from "../entities/Credential";
 
 // Set DataSource
 export const AppDataSource = new DataSource({

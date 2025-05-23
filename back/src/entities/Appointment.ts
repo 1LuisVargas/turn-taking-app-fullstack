@@ -17,7 +17,6 @@ class Appointment {
   time: string;
 
   @Column({
-    length: 5,
     type: "int",
   })
   userId: number;
