@@ -1,7 +1,6 @@
 //Importing modules
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import User from "./User";
-import app from "../server";
 
 //Created the enum for status
 export enum appointmentStatus {
