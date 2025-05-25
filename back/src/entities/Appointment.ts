@@ -1,6 +1,13 @@
 //Importing modules
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import User from "./User";
+import app from "../server";
+
+//Created the enum for status
+export enum appointmentStatus {
+  ACTIVE = "active",
+  CANCELLED = "cancelled",
+}
 
 //Created new appointment entity
 @Entity({ name: "appointments" })
@@ -23,12 +30,10 @@ class Appointment {
 
   @Column({
     type: "enum",
-    enum: {
-      ACTIVE: "active",
-      CANCELLED: "cancelled",
-    },
+    enum: "appointmentStatus",
+    default: appointmentStatus.ACTIVE,
   })
-  status: string;
+  status: appointmentStatus;
 
   //User relationship
   @ManyToOne(() => User, (user) => user.appointments)
