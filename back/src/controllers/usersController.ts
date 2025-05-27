@@ -2,14 +2,14 @@
 import { Request, Response } from "express";
 import { getUsers, getUserByID, createUser } from "../services/usersService";
 import { checkCredentials } from "../services/credentialsService";
-import IUser from "../interfaces/IUser";
+import User from "../entities/User";
 
 // GET
 
 // Get all users
 export const getUsersController = async (_req: Request, res: Response) => {
   try {
-    const users: IUser[] = await getUsers();
+    const users: User[] = await getUsers();
     res.status(200).json({
       success: true,
       data: users,
@@ -25,7 +25,7 @@ export const getUsersController = async (_req: Request, res: Response) => {
 // Get user by ID
 export const getUserByIdController = async (req: Request, res: Response) => {
   try {
-    const user: IUser = await getUserByID(Number(req.params.id));
+    const user: User = await getUserByID(Number(req.params.id));
     res.status(200).json({
       success: true,
       data: user,
@@ -41,7 +41,7 @@ export const getUserByIdController = async (req: Request, res: Response) => {
 // Create user
 export const registerUserController = async (req: Request, res: Response) => {
   try {
-    const newUser: IUser = await createUser(req.body);
+    const newUser: User = await createUser(req.body);
     res.status(201).json({
       success: true,
       data: newUser,

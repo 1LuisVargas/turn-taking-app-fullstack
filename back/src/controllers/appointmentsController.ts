@@ -6,7 +6,7 @@ import {
   createAppointment,
   cancelAppointment,
 } from "../services/appointmentsService";
-import { IAppointment } from "../interfaces/IAppointment";
+import Appointment from "../entities/Appointment";
 
 // Get all appointments
 export const getAppointmentsController = async (
@@ -14,7 +14,7 @@ export const getAppointmentsController = async (
   res: Response
 ) => {
   try {
-    const appointments: IAppointment[] = await getAllAppointments();
+    const appointments: Appointment[] = await getAllAppointments();
     res.status(200).json({
       success: true,
       data: appointments,
@@ -34,7 +34,7 @@ export const getAppointmentByIdController = async (
 ) => {
     try{
         //const id: number = Number(req.params.id);
-        const appointment: IAppointment = await getAppointmentByID(Number(req.params.id));
+        const appointment: Appointment = await getAppointmentByID(Number(req.params.id));
         res.status(200).json({
             success: true,
             data: appointment,
@@ -55,7 +55,7 @@ export const createAppointmentController = async (
 ) => {
     try {
         //const { date, time, userId }: ICreateAppointmentDTO = req.body;
-        const appointment: IAppointment = await createAppointment(req.body);
+        const appointment: Appointment = await createAppointment(req.body);
         res.status(201).json({
             success: true,
             data: appointment,
