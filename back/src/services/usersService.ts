@@ -24,25 +24,18 @@ export const getUserByID = async (id: number): Promise<User> => {
 //Service to create a new user
 export const createUser = async (
   createUserDTO: createUserDTO
-): Promise<IUser> => {
-  //Calling the service to create a new credential
-  const newCredentialID = await createCredential(
-    createUserDTO.username,
-    createUserDTO.password
-  );
-
+): Promise<User> => {
   //Creating the new user
-  const newUser: IUser = {
-    id: userId,
+  const newUser: User = await userRepository.create({
     name: createUserDTO.name,
     email: createUserDTO.email,
     birthdate: createUserDTO.birthdate,
     Dni: Number(createUserDTO.Dni),
-    credentialsId: newCredentialID,
-  };
+    credential: await createCredential(createUserDTO.username, createUserDTO.password), //ID of the new credential being created by the service
+  });
 
-  //Pushing the new user to the DB
-  usersDB.push(newUser);
-  userId++;
+  //Saving the new user to the DB
+  await userRepository.save(newUser);
+
   return newUser;
 };

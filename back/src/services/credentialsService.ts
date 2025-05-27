@@ -6,7 +6,7 @@ import Credential from "../entities/Credential";
 export const createCredential = async (
   username: string,
   password: string
-): Promise<Credential["id"]> => {
+): Promise<Credential> => {
   //Creating the new credential
   const newCredential = await credentialRepository.create({
     username,
@@ -15,7 +15,7 @@ export const createCredential = async (
 
   //Saving the new credential to the DB, and returning the ID
   const results: Credential = await credentialRepository.save(newCredential);
-  return results.id;
+  return results;
 };
 
 //Service to check credentials
