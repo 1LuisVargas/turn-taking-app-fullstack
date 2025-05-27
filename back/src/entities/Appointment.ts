@@ -29,7 +29,7 @@ class Appointment {
 
   @Column({
     type: "enum",
-    enum: "appointmentStatus",
+    enum: appointmentStatus,
     default: appointmentStatus.ACTIVE,
   })
   status: appointmentStatus;
