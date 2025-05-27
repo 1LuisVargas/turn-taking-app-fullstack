@@ -20,7 +20,7 @@ export const getAppointmentsController = async (
       data: appointments,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       error: error.message,
     });
@@ -41,7 +41,7 @@ export const getAppointmentByIdController = async (
         });
     }
     catch (error: any) {
-        res.status(500).json({
+        res.status(404).json({
             success: false,
             error: error.message,
         });
@@ -61,7 +61,7 @@ export const createAppointmentController = async (
             data: appointment,
         });
     } catch (error: any) {
-        res.status(500).json({
+        res.status(400).json({
             success: false,
             error: error.message,
         });
@@ -76,12 +76,12 @@ export const CancelAppointmentController = async (
     try {
         //const id: number = Number(req.params.id);
         const appointmentID: number = await cancelAppointment(Number(req.params.id));
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             data: appointmentID,
         });
     } catch (error: any) {
-        res.status(500).json({
+        res.status(404).json({
             success: false,
             error: error.message,
         })

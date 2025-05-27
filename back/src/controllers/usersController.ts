@@ -15,7 +15,7 @@ export const getUsersController = async (_req: Request, res: Response) => {
       data: users,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       error: error.message,
     });
@@ -31,7 +31,7 @@ export const getUserByIdController = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       error: error.message,
     });
@@ -47,7 +47,7 @@ export const registerUserController = async (req: Request, res: Response) => {
       data: newUser,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(400).json({
       success: false,
       error: error.message,
     });
@@ -66,7 +66,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       data: credentialId,
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(400).json({
       success: false,
       error: error.message,
     });
