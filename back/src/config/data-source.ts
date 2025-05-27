@@ -19,3 +19,8 @@ export const AppDataSource = new DataSource({
     subscribers: [],
     migrations: [],
 })
+
+// Creating and exporting repositories
+export const credentialRepository = AppDataSource.getRepository(Credential);
+export const userRepository = AppDataSource.getRepository(User);
+export const appointmentRepository = AppDataSource.getRepository(Appointment);
