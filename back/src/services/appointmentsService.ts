@@ -1,19 +1,18 @@
 // Importing modules
 import ICreateAppointmentDTO from "../dtos/createAppointmentDTO";
-import { IAppointment, appointmentStatus } from "../interfaces/IAppointment";
-
-// Created a fake DB for appointments
-const appointmentsDB: IAppointment[] = [];
-let appointmentId: number = 1;
+import Appointment from "../entities/Appointment";
+import { appointmentStatus } from "../entities/Appointment";
+import { appointmentRepository } from "../config/data-source";
 
 // Getting all appointments service
-export const getAllAppointments = async () : Promise<IAppointment[]> => {
-    return appointmentsDB;
+export const getAllAppointments = async () : Promise<Appointment[]> => {
+    return await appointmentRepository.find();
 };
 
 // Getting a specific appointment by ID service
-export const getAppointmentByID = async (id: number) : Promise<IAppointment> => {
-    const appointmentFound : IAppointment | undefined = appointmentsDB.find((appointment: IAppointment) => appointment.id === id);
+export const getAppointmentByID = async (id: number) : Promise<Appointment> => {
+    const appointmentFound : Appointment | null = await appointmentRepository.findOneBy({id});
+
     //If the appointment is found, return the appointment, else throw an error
     if (appointmentFound) {
         return appointmentFound;
@@ -24,31 +23,30 @@ export const getAppointmentByID = async (id: number) : Promise<IAppointment> => 
 };
 
 // Creating a new appointment service
-export const createAppointment = async (appointment: ICreateAppointmentDTO) : Promise<IAppointment> => {
-    // Creating the new appointment
-    const newAppointment: IAppointment = {
-        id: appointmentId,
+export const createAppointment = async (appointment: ICreateAppointmentDTO) : Promise<Appointment> => {
+    // Creating the new appointment. Appointment status has been set to active by default
+    const newAppointment: Appointment = await appointmentRepository.create({
         date: appointment.date,
         time: appointment.time,
         userId: appointment.userId,
-        status: appointmentStatus.active // By default, the status is active
-    }
-    // Pushing the new appointment to the DB and incrementing the appointment ID
-    appointmentsDB.push(newAppointment);
-    appointmentId++;
+    })
+    
+    // Saving the new appointment to the DB
+    await appointmentRepository.save(newAppointment);
     return newAppointment;
 };
 
 // Canceling an appointment service
- export const cancelAppointment = async (id:number) : Promise<IAppointment["id"]> => {
+ export const cancelAppointment = async (id:number) : Promise<Appointment["id"]> => {
     // Checking if the appointment exists
-    const foundAppointment : IAppointment | undefined = await getAppointmentByID(id);
+    const foundAppointment : Appointment | undefined = await getAppointmentByID(id);
     //If the appointment is already cancelled throw an error, else set the status to cancelled
-    if (foundAppointment.status === appointmentStatus.cancelled) {
+    if (foundAppointment.status === appointmentStatus.CANCELLED) {
         throw new Error("Appointment already cancelled");
     }
     else if (foundAppointment) {
-        foundAppointment.status = appointmentStatus.cancelled;
+        foundAppointment.status = appointmentStatus.CANCELLED;
+        await appointmentRepository.save(foundAppointment);
     }
     return foundAppointment.id;
 }
