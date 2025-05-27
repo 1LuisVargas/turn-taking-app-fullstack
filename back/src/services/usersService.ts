@@ -25,6 +25,15 @@ export const getUserByID = async (id: number): Promise<User> => {
 export const createUser = async (
   createUserDTO: createUserDTO
 ): Promise<User> => {
+  //Checking if the user already exists
+  const foundUser: User | null = await userRepository.findOneBy({
+    email: createUserDTO.email,
+  });
+  //If the user already exists, throw an error
+  if (foundUser) {
+    throw new Error("User already exists");
+  }
+
   //Creating the new user
   const newUser: User = await userRepository.create({
     name: createUserDTO.name,
