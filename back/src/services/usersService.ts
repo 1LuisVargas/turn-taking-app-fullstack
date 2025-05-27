@@ -1,21 +1,18 @@
-import IUser from "../interfaces/IUser";
+//Importing modules
+import { userRepository } from "../config/data-source";
 import createUserDTO from "../dtos/createUserDTO";
+import User from "../entities/User";
 import { createCredential } from "./credentialsService";
 
-//Created new user fake DB
-const usersDB: IUser[] = [];
-let userId: number = 1;
-
 //Service to get all users
-export const getUsers = async (): Promise<IUser[]> => {
-  return usersDB;
+export const getUsers = async (): Promise<User[]> => {
+  return await userRepository.find();
 };
 
 //Service to get a user by ID
-export const getUserByID = async (id: number): Promise<IUser> => {
-  const foundUser: IUser | undefined = usersDB.find(
-    (user: IUser) => user.id === id
-  );
+export const getUserByID = async (id: number): Promise<User> => {
+  //Finding the user by ID
+  const foundUser: User | null = await userRepository.findOneBy({ id });
   //If the user is found, return the user, else throw an error
   if (foundUser) {
     return foundUser;
