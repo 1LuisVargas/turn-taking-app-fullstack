@@ -1,32 +1,34 @@
-//Importing modules
-import ICredential from "../interfaces/ICredential";
-
-//Created new credential fake DB
-const credentialsDB: ICredential[] = [];
-let credentialId: number = 1;
+//Importing modules;
+import { credentialRepository } from "../config/data-source";
+import Credential from "../entities/Credential";
 
 //Service to create a new credential
-export const createCredential = async (username: string, password: string):Promise<ICredential["id"]> => {
-    //Creating the new credential
-    const newCredential: ICredential = {
-        id: credentialId,
-        username: username,
-        password: password
-    }
-    //Pushing the new credential to the DB and incrementing the credential ID
-    credentialsDB.push(newCredential);
-    credentialId++;
-    return newCredential.id;
-}
+export const createCredential = async (
+  username: string,
+  password: string
+): Promise<Credential["id"]> => {
+  //Creating the new credential
+  const newCredential = await credentialRepository.create({
+    username,
+    password,
+  });
+
+  //Saving the new credential to the DB, and returning the ID
+  const results: Credential = await credentialRepository.save(newCredential);
+  return results.id;
+};
 
 //Service to check credentials
-export const checkCredentials = async (username: string, password: string):Promise<ICredential["id"]> => {
-    const foundCredential: ICredential | undefined = credentialsDB.find((credential: ICredential) => credential.username === username && credential.password === password);
-    //If the username and password match, return the id, else throw an error
-    if (foundCredential) {
-        return foundCredential.id;
-    }
-    else {
-        throw new Error("Invalid credentials");
-    }
-}
+export const checkCredentials = async (
+  username: string,
+  password: string
+): Promise<Credential["id"]> => {
+  const foundCredential: Credential | null =
+    await credentialRepository.findOneBy({ username, password });
+  //If the credential is found, return the ID, else throw an error
+  if (foundCredential) {
+    return foundCredential.id;
+  } else {
+    throw new Error("Credentials not found");
+  }
+};
