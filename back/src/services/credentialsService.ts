@@ -1,6 +1,8 @@
 //Importing modules;
 import { credentialRepository } from "../config/data-source";
 import Credential from "../entities/Credential";
+import User from "../entities/User";
+import { getUserByID } from "./usersService";
 
 //Service to create a new credential
 export const createCredential = async (
@@ -22,12 +24,12 @@ export const createCredential = async (
 export const checkCredentials = async (
   username: string,
   password: string
-): Promise<Credential["id"]> => {
+): Promise<User> => {
   const foundCredential: Credential | null =
     await credentialRepository.findOneBy({ username, password });
   //If the credential is found, return the ID, else throw an error
   if (foundCredential) {
-    return foundCredential.id;
+    return await getUserByID(foundCredential.id);
   } else {
     throw new Error("Credentials not found");
   }

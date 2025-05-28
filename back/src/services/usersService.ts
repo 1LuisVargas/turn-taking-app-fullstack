@@ -12,7 +12,10 @@ export const getUsers = async (): Promise<User[]> => {
 //Service to get a user by ID
 export const getUserByID = async (id: number): Promise<User> => {
   //Finding the user by ID
-  const foundUser: User | null = await userRepository.findOneBy({ id });
+  const foundUser: User | null = await userRepository.findOne({ 
+    where: { id },
+    relations: ["appointments"],
+  });
   //If the user is found, return the user, else throw an error
   if (foundUser) {
     return foundUser;

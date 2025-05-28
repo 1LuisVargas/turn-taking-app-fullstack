@@ -57,13 +57,13 @@ export const registerUserController = async (req: Request, res: Response) => {
 // Login user
 export const loginUserController = async (req: Request, res: Response) => {
   try {
-    const credentialId: number = await checkCredentials(
+    const verifiedCredential: User = await checkCredentials(
       req.body.username,
       req.body.password
     );
     res.status(200).json({
-      success: true,
-      data: credentialId,
+      login: true,
+      user: verifiedCredential
     });
   } catch (error: any) {
     res.status(400).json({
