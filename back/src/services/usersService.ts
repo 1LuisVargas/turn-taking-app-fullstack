@@ -43,11 +43,17 @@ export const createUser = async (
     email: createUserDTO.email,
     birthdate: createUserDTO.birthdate,
     Dni: Number(createUserDTO.Dni),
-    credential: await createCredential(createUserDTO.username, createUserDTO.password), //ID of the new credential being created by the service
   });
+  await userRepository.save(newUser); //Saving the new user to the DB to have an ID
+  
+  //Creating the new credential
+  const newCredential = await createCredential(createUserDTO.username, createUserDTO.password, newUser.id);
 
-  //Saving the new user to the DB
+  //Adding the credential to the user
+  newUser.credential = newCredential;
+
+  //Saving the new user to the DB again to save with credential.
   await userRepository.save(newUser);
-
+  
   return newUser;
 };

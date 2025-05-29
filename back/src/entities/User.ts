@@ -41,7 +41,7 @@ class User {
   Dni: number;
 
   //Credential relation
-  @OneToOne(() => Credential)
+  @OneToOne(() => Credential, (credential) => credential.user)
   @JoinColumn()
   credential: Credential;
 

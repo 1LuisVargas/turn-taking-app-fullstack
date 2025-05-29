@@ -1,5 +1,6 @@
 //Importing modules
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import User from "./User";
 
 //Created new credential entity
 @Entity({
@@ -19,6 +20,11 @@ class Credential {
     length: 100,
   })
   password: string;
+
+  //User relation
+  @OneToOne(() => User, (user) => user.credential, {eager: true})
+  @JoinColumn()
+  user: User;
 }
 
 export default Credential;
