@@ -28,8 +28,10 @@ export const checkCredentials = async (
   password: string
 ): Promise<User> => {
   const foundCredential: Credential | null =
-    await credentialRepository.findOneBy({ username, password });
-    console.log(foundCredential);
+    await credentialRepository.findOne({
+      where: { username, password },
+      relations: ["user"],
+    });
   //If the credential is found, return the ID, else throw an error
   if (foundCredential) {
     return foundCredential.user;

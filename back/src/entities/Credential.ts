@@ -22,7 +22,7 @@ class Credential {
   password: string;
 
   //User relation
-  @OneToOne(() => User, (user) => user.credential, {eager: true})
+  @OneToOne(() => User, (user) => user.credential)
   @JoinColumn()
   user: User;
 }

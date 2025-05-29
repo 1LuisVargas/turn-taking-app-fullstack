@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
     username: DB_USERNAME,
     password: DB_PASSWORD,
     database: DB_NAME,
-    dropSchema: true, // Set to true to erase DB
+    dropSchema: false, // Set to true to erase DB
     synchronize: true,
     logging: false,
     entities: [Credential, User, Appointment],
