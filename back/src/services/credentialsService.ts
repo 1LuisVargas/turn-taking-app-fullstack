@@ -17,7 +17,7 @@ export const createCredential = async (
     user: await getUserByID(userId),
   });
 
-  //Saving the new credential to the DB, and returning the ID
+  //Saving the new credential to the DB, and returning the user
   const results: Credential = await credentialRepository.save(newCredential);
   return results;
 };
@@ -32,7 +32,7 @@ export const checkCredentials = async (
       where: { username, password },
       relations: ["user"],
     });
-  //If the credential is found, return the ID, else throw an error
+  //If the credential is found, return the user, else throw an error
   if (foundCredential) {
     return foundCredential.user;
   } else {
