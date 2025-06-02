@@ -1,6 +1,8 @@
+import styles from "../modules/NavBar.module.css";
+
 const NavBar = () => {
     return (
-        <nav>
+        <nav className={styles.container}>
             <a href="#">Home</a>
             <a href="#">Appointments</a>
             <a href="#">Login</a>
