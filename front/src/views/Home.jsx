@@ -3,9 +3,9 @@ import styles from "../modules/Home.module.css";
 
 const Home = () => {
     return (
-        <div className={styles.container}>
+        <div>
             <NavBar/>
-            <h1>Home</h1>
+            <h1 className={styles.container}>Home</h1>
         </div>
     )
 }
