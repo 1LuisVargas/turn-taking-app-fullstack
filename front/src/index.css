@@ -1,5 +1,8 @@
-/* Removing default margin and padding */
+/* Removing default margin and padding, and adding some basic style to all elements */
 * { 
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background-color: burlywood;
 }

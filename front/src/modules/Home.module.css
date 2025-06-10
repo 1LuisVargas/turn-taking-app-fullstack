@@ -1,7 +1,10 @@
 .container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    color: white;
+    height: 70px;
+    background-color: antiquewhite;
+    padding: 30px;
 }

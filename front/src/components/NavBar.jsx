@@ -2,9 +2,9 @@ import styles from "../modules/NavBar.module.css";
 
 const NavBar = () => {
   return (
-    <header className={styles.container}>
+    <header>
       <nav>
-        <ul>
+        <ul className={styles.container}>
           <li>
             <a href="#">Home</a>
           </li>
