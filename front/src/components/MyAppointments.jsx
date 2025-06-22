@@ -1,11 +1,10 @@
-import { useState } from "react";
 import appointments from "../helpers/myAppointments";
+import { useState } from "react";
 
 const Appointments = () => {
+    const [myAppointments, setMyAppointments] = useState([appointments]);
     return (
         <div>
-            <h1>My Appointments</h1>
-            const [appointments, setAppointments] = useState([]);
         </div>
     );
 };
