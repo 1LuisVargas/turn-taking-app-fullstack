@@ -4,13 +4,12 @@ import styles from "../modules/MyAppointments.module.css";
 import AppointmentCard from "./AppointmentCard";
 
 const Appointments = () => {
-    const [MyAppointments, setMyAppointments] = useState([appointments]);
-    console.log(MyAppointments);
+    const [myAppointments, setMyAppointments] = useState(appointments);
     return (
         <div>
             <h1>My Appointments</h1>
-            <div className={styles.container}>
-                {MyAppointments.map((appointment) => (
+            <div className={styles.appointmentContainer}>
+                {myAppointments.map((appointment) => (
                     <AppointmentCard key={appointment.id} appointment={appointment} />
                 ))}
             </div>
