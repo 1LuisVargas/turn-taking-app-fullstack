@@ -3,8 +3,9 @@ import styles from "../modules/NavBar.module.css";
 const NavBar = () => {
   return (
     <header>
-      <nav>
-        <ul className={styles.container}>
+      <nav className={styles.navBarULContainer}>
+        <h1>Appointment Scheduler</h1>
+        <ul>
           <li>
             <a href="#">Home</a>
           </li>

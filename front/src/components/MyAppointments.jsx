@@ -7,8 +7,8 @@ const Appointments = () => {
     const [myAppointments, setMyAppointments] = useState(appointments);
     return (
         <div>
-            <h1>My Appointments</h1>
-            <div className={styles.appointmentContainer}>
+            <h1 className={styles.h1}>My Appointments</h1>
+            <div className={styles.appointmentsContainer}>
                 {myAppointments.map((appointment) => (
                     <AppointmentCard key={appointment.id} appointment={appointment} />
                 ))}

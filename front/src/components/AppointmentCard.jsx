@@ -3,7 +3,7 @@ import styles from "../modules/AppointmentCard.module.css";
 const AppointmentCard = ({ appointment }) => {
   return (
     <div className={styles.appointmentCard}>
-      <h1>AppointmentCard</h1>
+      <h2>AppointmentCard</h2>
       <p>
         <strong>Date:</strong> {appointment.date}
       </p>

@@ -4,9 +4,8 @@ import MyAppointments from "../components/MyAppointments";
 
 const Home = () => {
     return (
-        <div className={styles.container}>
+        <div className={styles.homeContainer}>
             <NavBar/>
-            <h1>Home</h1>
             <MyAppointments/>
         </div>
     )
