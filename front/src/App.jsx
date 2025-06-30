@@ -1,5 +1,4 @@
 import Home from './views/Home'
-import MyAppointments from './components/MyAppointments'
 import NavBar from './components/NavBar'
 
 function App() {
@@ -7,7 +6,6 @@ function App() {
     <>
       <NavBar/>
       <Home/>
-      <MyAppointments/>
     </>
   )
 }
