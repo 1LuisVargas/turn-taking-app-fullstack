@@ -2,91 +2,76 @@ import axios from "axios";
 import { useState } from "react";
 import styles from "../modules/Register.module.css";
 import validation from "../helpers/validation";
+import { Formik } from "formik";
 
-export const Register = () => {
-  // Defining states
-  const [registerData, setRegisterData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const [errors, setErrors] = useState({
-    username: "Username is required",
-    email: "Email is required",
-    password: "Password is required",
-  });
-
-  // Defining handlers
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    if (
-      registerData.username === "" ||
-      registerData.email === "" ||
-      registerData.password === ""
-    )
-      return;
-    axios.post("http://localhost:3000/users", registerData).then((response) => {
-      try {
-        alert("User registered successfully");
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-  };
-
-  const changeHandler = (e) => {
-    console.log(e.target.name, e.target.value);
-    setRegisterData({
-      ...registerData,
-      [e.target.name]: e.target.value, // Constantly updating the state
-    });
-
-    setErrors(validation(e.target.username, e.target.value)); // Validating
-  };
-
-  // Rendering
+const Register = () => {
   return (
-    <form onSubmit={handleOnSubmit}>
-      <h1>REGISTER</h1>
-      <div>
-        <label>Name</label>
-        <input
-          type="text"
-          value={registerData.username} // Binding the state
-          name="username"
-          placeholder="Username"
-          required
-          onChange={changeHandler}
-        />
-        {errors.username && <p>{errors.username}</p>}
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          value={registerData.email} // Binding the state
-          name="email"
-          placeholder="Email"
-          required
-          onChange={changeHandler}
-        />
-        {errors.email && <p>{errors.email}</p>}
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          value={registerData.password}
-          name="password"
-          placeholder="Password"
-          required
-          onChange={changeHandler} // Binding the state
-        />
-        {errors.password && <p>{errors.password}</p>}
-      </div>
-      <button>Register</button>
-    </form>
+    <Formik
+      initialValues={{
+        username: "",
+        email: "",
+        password: "",
+      }}
+      validate={(values) => {
+        const errors = {};
+        if (!values.username) errors.username = "Username is required";
+        if (!values.email) errors.email = "Email is required";
+        if (!values.password) errors.password = "Password is required";
+        return errors;
+      }}
+      onSubmit={(values) => {
+        axios.post("http://localhost:3000/users", values).then((response) => {
+          try {
+            alert("User registered successfully");
+          } catch (error) {
+            alert(error.message);
+          }
+        });
+      }}
+    >
+      {(props) => (
+        <form onSubmit={props.handleSubmit} className={styles.formContainer}>
+          <h1>REGISTER</h1>
+          <div className={styles.inputContainer}>
+            <label>Name</label>
+            <input
+              type="text"
+              value={props.values.username} // Binding the state
+              name="username"
+              placeholder="Username"
+              required
+              onChange={props.handleChange}
+            />
+            {props.errors.username && <p>{props.errors.username}</p>}
+          </div>
+          <div className={styles.inputContainer}>
+            <label>Email</label>
+            <input
+              type="text"
+              value={props.values.email} // Binding the state
+              name="email"
+              placeholder="Email"
+              required
+              onChange={props.handleChange}
+            />
+            {props.errors.email && <p>{props.errors.email}</p>}
+          </div>
+          <div className={styles.inputContainer}>
+            <label>Password</label>
+            <input
+              type="password"
+              value={props.values.password} // Binding the state
+              name="password"
+              placeholder="Password"
+              required
+              onChange={props.handleChange}
+            />
+            {props.errors.password && <p>{props.errors.password}</p>}
+          </div>
+          <button>Register</button>
+        </form>
+      )}
+    </Formik>
   );
 };
 
