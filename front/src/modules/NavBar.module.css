@@ -3,14 +3,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: #F1F5F9;
   height: 70px;
   padding: 30px;
   background-color: #0F172A;
 
   & {
     a {
-      color: #F1F5F9;
       text-decoration: none;
     }
     ul {
