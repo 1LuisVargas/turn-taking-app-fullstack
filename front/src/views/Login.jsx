@@ -1,10 +1,18 @@
 import { useState } from "react";
+import axios from "axios";
+import styles from "../modules/Login.module.css";
+import validation  from "../helpers/validation";
 
 export const Login = () => {
-  //Defining state
+  //Defining states
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
+  });
+
+  const [errors, setErrors] = useState({
+    email: "Email is required",
+    password: "Password is required",
   });
 
   //Defining handlers
@@ -13,11 +21,19 @@ export const Login = () => {
       ...loginData,
       [e.target.name]: e.target.value, //Updating the state
     });
+
+    setErrors(validation(e.target.name, e.target.value));//Validating
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(loginData);
+    axios.post("http://localhost:3000/login", loginData).then((response) => {
+      try {
+        alert("User logged in successfully");
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   };
 
   //Rendering
@@ -30,6 +46,7 @@ export const Login = () => {
         name="email"
         onChange={console.log("Changing:")}
         value={loginData.email} // Binding the state
+        required
         placeholder="Email"
       />
       <label>Password</label>
@@ -38,6 +55,7 @@ export const Login = () => {
         name="password"
         onChange={changeHandler}
         value={loginData.password} // Binding the state
+        required
         placeholder="Password"
       />
       <button type="submit">Login</button>
