@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import validatingLogin from "../helpers/validation";
+import { validatingLogin } from "../helpers/validation";
 import styles from "../modules/Login.module.css";
 import axios from "axios";
 
@@ -24,19 +24,19 @@ const Login = () => {
       <h2>Login</h2>
       <Formik
         initialValues={{
-          email: "",
+          username: "",
           password: "",
         }}
         validate={validatingLogin} //Validating
-        onSubmit={(values, { setSubmitting }) => {
-          handleOnSubmit(values);
+        onSubmit={ async (values, { setSubmitting }) => {
+          await handleOnSubmit(values);
           setSubmitting(false);
         }}
       >
         <Form className={styles.formContainer}>
-          <label>Email:</label>
-          <Field type="email" name="email" required/>
-          <ErrorMessage name="email" component="div" />
+          <label>Username:</label>
+          <Field type="text" name="username" required/>
+          <ErrorMessage name="username" component="div" />
           
           <label>Password:</label>
           <Field type="password" name="password" required/>

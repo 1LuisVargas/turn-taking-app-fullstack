@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import validatingRegister from "../helpers/validation";
+import { validatingRegister } from "../helpers/validation";
 import styles from "../modules/Register.module.css";
 import axios from "axios";
 
