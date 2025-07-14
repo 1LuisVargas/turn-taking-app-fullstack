@@ -1,18 +1,11 @@
-const validation = (value, type) => {
-    switch (type) {
-        case "email": //Validating email
-            return String(value) 
-                .toLowerCase()
-                .match(
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                );
-        case "password": //Validating password
-            return String(value).length >= 6;
-        case "username": //Validating username
-            return String(value).length >= 2;
-        default:
-            return true;
-    }
+const validatingRegister = (values) => {
+  const errors = {};
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
+  }
+  return errors;
 };
 
-export default validation;
+export default validatingRegister;

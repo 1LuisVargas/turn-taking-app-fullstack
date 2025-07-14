@@ -1,65 +1,51 @@
-import { useState } from "react";
-import axios from "axios";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import validatingLogin from "../helpers/validation";
 import styles from "../modules/Login.module.css";
-import validation  from "../helpers/validation";
+import axios from "axios";
 
-export const Login = () => {
-  //Defining states
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [errors, setErrors] = useState({
-    email: "Email is required",
-    password: "Password is required",
-  });
-
-  //Defining handlers
-  const changeHandler = (e) => {
-    setLoginData({
-      ...loginData,
-      [e.target.name]: e.target.value, //Updating the state
-    });
-
-    setErrors(validation(e.target.name, e.target.value));//Validating
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    axios.post("http://localhost:3000/login", loginData).then((response) => {
-      try {
+const Login = () => {
+  const handleOnSubmit = async (formData) => {
+    //Defining handler
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users/login",
+        formData
+      );
+      if (response.status === 200) {
         alert("User logged in successfully");
-      } catch (error) {
-        alert(error.message);
       }
-    });
+    } catch (error) {
+      alert("Login failed");
+    }
   };
 
-  //Rendering
   return (
-    <form onSubmit={handleOnSubmit}>
-      <h1>LOGIN</h1>
-      <label>Email</label>
-      <input
-        type="text"
-        name="email"
-        onChange={console.log("Changing:")}
-        value={loginData.email} // Binding the state
-        required
-        placeholder="Email"
-      />
-      <label>Password</label>
-      <input
-        type="password"
-        name="password"
-        onChange={changeHandler}
-        value={loginData.password} // Binding the state
-        required
-        placeholder="Password"
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className={styles.formContainer}>
+      <h2>Login</h2>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validate={validatingLogin} //Validating
+        onSubmit={(values, { setSubmitting }) => {
+          handleOnSubmit(values);
+          setSubmitting(false);
+        }}
+      >
+        <Form className={styles.formContainer}>
+          <label>Email:</label>
+          <Field type="email" name="email" required/>
+          <ErrorMessage name="email" component="div" />
+          
+          <label>Password:</label>
+          <Field type="password" name="password" required/>
+          <ErrorMessage name="password" component="div" />
+          
+          <button type="submit">Login</button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 

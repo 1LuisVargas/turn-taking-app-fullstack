@@ -1,77 +1,74 @@
-import axios from "axios";
-import { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import validatingRegister from "../helpers/validation";
 import styles from "../modules/Register.module.css";
-import validation from "../helpers/validation";
-import { Formik } from "formik";
+import axios from "axios";
 
 const Register = () => {
+  const handleOnSubmit = async (formData) => {
+    //Defining handler
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users/register",
+        formData
+      );
+      if (response.status === 201) {
+        alert("User registered successfully");
+      }
+    } catch (error) {
+      alert("Registration failed");
+    }
+  };
+
   return (
-    <Formik
-      initialValues={{
-        username: "",
-        email: "",
-        password: "",
-      }}
-      validate={(values) => {
-        const errors = {};
-        if (!values.username) errors.username = "Username is required";
-        if (!values.email) errors.email = "Email is required";
-        if (!values.password) errors.password = "Password is required";
-        return errors;
-      }}
-      onSubmit={(values) => {
-        axios.post("http://localhost:3000/users", values).then((response) => {
-          try {
-            alert("User registered successfully");
-          } catch (error) {
-            alert(error.message);
-          }
-        });
-      }}
-    >
-      {(props) => (
-        <form onSubmit={props.handleSubmit} className={styles.formContainer}>
-          <h1>REGISTER</h1>
-          <div className={styles.inputContainer}>
-            <label>Name</label>
-            <input
-              type="text"
-              value={props.values.username} // Binding the state
-              name="username"
-              placeholder="Username"
-              required
-              onChange={props.handleChange}
-            />
-            {props.errors.username && <p>{props.errors.username}</p>}
-          </div>
-          <div className={styles.inputContainer}>
-            <label>Email</label>
-            <input
-              type="text"
-              value={props.values.email} // Binding the state
-              name="email"
-              placeholder="Email"
-              required
-              onChange={props.handleChange}
-            />
-            {props.errors.email && <p>{props.errors.email}</p>}
-          </div>
-          <div className={styles.inputContainer}>
-            <label>Password</label>
-            <input
-              type="password"
-              value={props.values.password} // Binding the state
-              name="password"
-              placeholder="Password"
-              required
-              onChange={props.handleChange}
-            />
-            {props.errors.password && <p>{props.errors.password}</p>}
-          </div>
-          <button>Register</button>
-        </form>
-      )}
-    </Formik>
+    <div>
+      <h2>Register</h2>
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+          birthday: "",
+          Dni: "",
+          password: "",
+        }}
+        validate={validatingRegister} //Validating
+        onSubmit={(values, { setSubmitting }) => {
+          handleOnSubmit(values);
+          setSubmitting(false); //Indicating that the form is not being submitted
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form className={styles.formContainer}>
+            <label>Username:</label>
+            <Field type="text" name="username" required />
+            <ErrorMessage name="username" component="div" />
+
+            <label>Name:</label>
+            <Field type="text" name="name" required />
+            <ErrorMessage name="name" component="div" />
+
+            <label>Email:</label>
+            <Field type="text" name="email" required />
+            <ErrorMessage name="email" component="div" />
+
+            <label>Birthdate:</label>
+            <Field type="text" name="birthdate" required />
+            <ErrorMessage name="birthdate" component="div" />
+
+            <label>Dni:</label>
+            <Field type="text" name="Dni" required />
+            <ErrorMessage name="Dni" component="div" />
+
+            <label>Password:</label>
+            <Field type="password" name="password" required />
+            <ErrorMessage name="password" component="div" />
+
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 
