@@ -15,12 +15,13 @@ const Register = () => {
         alert("User registered successfully");
       }
     } catch (error) {
+      console.log(error);
       alert("Registration failed");
     }
   };
 
   return (
-    <div>
+    <div className={styles.formContainer}>
       <h2>Register</h2>
       <Formik
         initialValues={{
@@ -31,12 +32,12 @@ const Register = () => {
           password: "",
         }}
         validate={validatingRegister} //Validating
-        onSubmit={(values, { setSubmitting }) => {
-          handleOnSubmit(values);
+        onSubmit={async (values, { setSubmitting }) => {
+          await handleOnSubmit(values);
           setSubmitting(false); //Indicating that the form is not being submitted
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, errors }) => (
           <Form className={styles.formContainer}>
             <label>Username:</label>
             <Field type="text" name="username" required />
@@ -62,7 +63,7 @@ const Register = () => {
             <Field type="password" name="password" required />
             <ErrorMessage name="password" component="div" />
 
-            <button type="submit" disabled={isSubmitting}>
+            <button type="submit" disabled={isSubmitting || errors.email}>
               Submit
             </button>
           </Form>

@@ -15,6 +15,7 @@ const Login = () => {
         alert("User logged in successfully");
       }
     } catch (error) {
+      console.log(error);
       alert("Login failed");
     }
   };
@@ -33,6 +34,8 @@ const Login = () => {
           setSubmitting(false);
         }}
       >
+        {({ isSubmitting, errors}) => (
+
         <Form className={styles.formContainer}>
           <label>Username:</label>
           <Field type="text" name="username" required/>
@@ -42,8 +45,8 @@ const Login = () => {
           <Field type="password" name="password" required/>
           <ErrorMessage name="password" component="div" />
           
-          <button type="submit">Login</button>
-        </Form>
+          <button type="submit" disabled={isSubmitting || errors}>Login</button>
+        </Form>)}
       </Formik>
     </div>
   );
