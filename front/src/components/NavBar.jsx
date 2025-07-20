@@ -1,21 +1,14 @@
 import styles from "../modules/NavBar.module.css";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <header>
       <nav className={styles.navBarULContainer}>
-        <h1>Appointment Scheduler</h1>
-        <ul>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">Appointments</a>
-          </li>
-          <li>
-            <a href="#">Login</a>
-          </li>
-        </ul>
+        <h1 >Appointment Scheduler</h1>
+        <Link to="/home">Home</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
       </nav>
     </header>
   );

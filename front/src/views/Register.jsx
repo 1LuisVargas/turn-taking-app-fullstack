@@ -63,7 +63,7 @@ const Register = () => {
             <Field type="password" name="password" required />
             <ErrorMessage name="password" component="div" />
 
-            <button type="submit" disabled={isSubmitting || errors.email}>
+            <button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>
               Register
             </button>
           </Form>

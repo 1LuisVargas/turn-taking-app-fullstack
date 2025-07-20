@@ -1,17 +1,24 @@
-import Home from './views/Home'
-import NavBar from './components/NavBar'
-import Login from './views/Login'
-import Register from './views/Register'
+import Home from "./views/Home";
+import NavBar from "./components/NavBar";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import ErrorPage from "./components/ErrorPage";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+
   return (
     <>
-      <NavBar/>
-      {/* <Home/> */}
-      {/* <Register/> */}
-      <Login/>
+      {location.pathname === "/" ? null : <NavBar />} 
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

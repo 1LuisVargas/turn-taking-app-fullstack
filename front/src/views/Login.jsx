@@ -2,8 +2,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validatingLogin } from "../helpers/validation";
 import styles from "../modules/Login.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate(); //Adding navigation
+
   const handleOnSubmit = async (formData) => {
     //Defining handler
     try {
@@ -13,6 +16,7 @@ const Login = () => {
       );
       if (response.status === 200) {
         alert("User logged in successfully");
+        navigate("/home"); //Sending to home if successful login
       }
     } catch (error) {
       console.log(error);
@@ -44,7 +48,7 @@ const Login = () => {
             <Field type="password" name="password" required />
             <ErrorMessage name="password" component="div" />
 
-            <button type="submit" disabled={isSubmitting || errors}>
+            <button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>
               Login
             </button>
           </Form>
