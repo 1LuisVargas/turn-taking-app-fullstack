@@ -64,7 +64,7 @@ const Register = () => {
             <ErrorMessage name="password" component="div" />
 
             <button type="submit" disabled={isSubmitting || errors.email}>
-              Submit
+              Register
             </button>
           </Form>
         )}

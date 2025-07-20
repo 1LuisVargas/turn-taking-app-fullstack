@@ -29,24 +29,26 @@ const Login = () => {
           password: "",
         }}
         validate={validatingLogin} //Validating
-        onSubmit={ async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           await handleOnSubmit(values);
           setSubmitting(false);
         }}
       >
-        {({ isSubmitting, errors}) => (
+        {({ isSubmitting, errors }) => (
+          <Form className={styles.formContainer}>
+            <label>Username:</label>
+            <Field type="text" name="username" required />
+            <ErrorMessage name="username" component="div" />
 
-        <Form className={styles.formContainer}>
-          <label>Username:</label>
-          <Field type="text" name="username" required/>
-          <ErrorMessage name="username" component="div" />
-          
-          <label>Password:</label>
-          <Field type="password" name="password" required/>
-          <ErrorMessage name="password" component="div" />
-          
-          <button type="submit" disabled={isSubmitting || errors}>Login</button>
-        </Form>)}
+            <label>Password:</label>
+            <Field type="password" name="password" required />
+            <ErrorMessage name="password" component="div" />
+
+            <button type="submit" disabled={isSubmitting || errors}>
+              Login
+            </button>
+          </Form>
+        )}
       </Formik>
     </div>
   );
