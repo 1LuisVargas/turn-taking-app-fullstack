@@ -6,16 +6,12 @@
   height: 70px;
   padding: 30px;
   background-color: #0F172A;
+}
 
-  & {
-    a {
-      text-decoration: none;
-    }
-    ul {
-      list-style-type: none;
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-    }
-  }
+.navBarLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
