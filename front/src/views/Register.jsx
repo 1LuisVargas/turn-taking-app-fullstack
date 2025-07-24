@@ -2,8 +2,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validatingRegister } from "../helpers/validation";
 import styles from "../modules/Register.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();//Adding navigation
+
   const handleOnSubmit = async (formData) => {
     //Defining handler
     try {
@@ -13,6 +16,7 @@ const Register = () => {
       );
       if (response.status === 201) {
         alert("User registered successfully");
+        navigate("/login"); //Sending to login if successful registration
       }
     } catch (error) {
       console.log(error);
