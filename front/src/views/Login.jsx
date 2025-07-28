@@ -54,6 +54,10 @@ const Login = () => {
           </Form>
         )}
       </Formik>
+
+      <p className={styles.registerLink}>
+        Don't have an account? <a href="/register"><strong>Register</strong></a>
+      </p>
     </div>
   );
 };

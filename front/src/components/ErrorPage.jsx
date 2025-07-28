@@ -12,7 +12,7 @@ const ErrorPage = () => {
 
         setTimeout(() => {
             clearInterval(interval);
-            navigate("/");
+            navigate("/home");
         }, 5000);
 
         return () => clearInterval(interval);
