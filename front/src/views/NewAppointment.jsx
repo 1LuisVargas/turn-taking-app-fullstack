@@ -50,7 +50,11 @@ const NewAppointment = () => {
               <label>Time:</label>
               <Field type="time" name="time" />
               <ErrorMessage name="time" component="div" className="error" />
-              <button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>
+              <button
+                type="submit"
+                disabled={isSubmitting || Object.keys(errors).length > 0}
+              >
+                {/* Disabled button if there are errors */}
                 Schedule
               </button>
             </div>

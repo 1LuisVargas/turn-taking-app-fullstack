@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const navigate = useNavigate();//Adding navigation
+  const navigate = useNavigate(); //Adding navigation
 
   const handleOnSubmit = async (formData) => {
     //Defining handler
@@ -67,7 +67,12 @@ const Register = () => {
             <Field type="password" name="password" required />
             <ErrorMessage name="password" component="div" />
 
-            <button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>
+            <button
+              type="submit"
+              disabled={isSubmitting || Object.keys(errors).length > 0}
+            >
+              {" "}
+              {/* Disabling the button if there are errors*/}
               Register
             </button>
           </Form>
