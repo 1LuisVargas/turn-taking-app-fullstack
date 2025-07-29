@@ -18,3 +18,14 @@ export const validatingLogin = (values) => {
   }
   return errors;
 };
+
+export const validatingNewAppointment = (values) => {
+  const errors = {};
+  if (!values.date) {
+    errors.date = "Required";
+  }
+  if (!values.time) {
+    errors.time = "Required";
+  }
+  return errors;
+};
