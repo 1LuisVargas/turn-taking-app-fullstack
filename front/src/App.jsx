@@ -3,17 +3,16 @@ import NavBar from "./components/NavBar";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import ErrorPage from "./components/ErrorPage";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MyAppointments from "./views/MyAppointments";
 
 function App() {
-  const location = useLocation();
 
   return (
     <>
-      {location.pathname === "/" ? null : <NavBar />} 
+      <NavBar />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/appointments" element={<MyAppointments />} />

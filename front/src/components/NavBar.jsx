@@ -7,7 +7,7 @@ const NavBar = () => {
       <nav className={styles.navBarULContainer}>
         <h1>Appointment Scheduler</h1>
         <div className={styles.navBarLinks}>
-          <Link to="/home">Home</Link>
+          <Link to="/">Home</Link>
           <Link to="/appointments">My Appointments</Link>
           <Link to="/login">Login</Link>
         </div>
