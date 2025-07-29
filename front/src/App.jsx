@@ -5,6 +5,7 @@ import Register from "./views/Register";
 import ErrorPage from "./components/ErrorPage";
 import { Routes, Route } from "react-router-dom";
 import MyAppointments from "./views/MyAppointments";
+import NewAppointment from "./views/NewAppointment";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/appointments" element={<MyAppointments />} />
         <Route path="*" element={<ErrorPage />} />
+        <Route path="/appointments/new" element={<NewAppointment />} />
       </Routes>
     </>
   );
