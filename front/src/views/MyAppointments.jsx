@@ -18,6 +18,17 @@ const Appointments = () => {
   return (
     <div>
       <h1 className={styles.h1}>My Appointments</h1>
+      <div className={styles.newAppointment}>
+        <p>
+          Need a new appointment?
+          <strong>
+            <a href="/appointments/new">
+              <br />
+              Schedule one now!
+            </a>
+          </strong>
+        </p>
+      </div>
       <div className={styles.appointmentsContainer}>
         {myAppointments.map((appointment) => (
           <AppointmentCard key={appointment.id} appointment={appointment} />
