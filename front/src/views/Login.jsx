@@ -3,6 +3,8 @@ import { validatingLogin } from "../helpers/validation";
 import styles from "../modules/Login.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { LoggedInContext } from "../context/LoggedIn.jsx";
+import { useContext } from "react";
 
 const Login = () => {
   const navigate = useNavigate(); //Adding navigation
@@ -16,7 +18,7 @@ const Login = () => {
       );
       if (response.status === 200) {
         alert("User logged in successfully");
-        navigate("/home"); //Sending to home if successful login
+        navigate("/appointments"); //Sending to appointments page if successful login
       }
     } catch (error) {
       console.log(error);
