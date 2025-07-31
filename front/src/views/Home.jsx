@@ -1,10 +1,23 @@
 import styles from "../modules/Home.module.css";
+import { useContext } from "react";
+import { LoggedInContext } from "../context/LoggedIn.jsx";
 
 const Home = () => {
+  const { loggedIn } = useContext(LoggedInContext);
+
   return (
     <div className={styles.homeContainer}>
       <h1>Welcome</h1>
-      <p>This is the home page for my restaurant. Please log in to review your appointments or create new ones.</p>
+      <p>This is the home page for my restaurant.</p>
+      {loggedIn ? (
+        <p>
+          Please
+          <a href="/login">
+            <strong>log in</strong>
+          </a>
+          to review your appointments or create new ones.
+        </p>
+      ) : null}
     </div>
   );
 };

@@ -4,9 +4,10 @@ import styles from "../modules/Login.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LoggedInContext } from "../context/LoggedIn.jsx";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const Login = () => {
+  const { loggedIn, setLoggedIn } = useContext(LoggedInContext); //Getting logged global state
   const navigate = useNavigate(); //Adding navigation
 
   const handleOnSubmit = async (formData) => {
@@ -17,14 +18,20 @@ const Login = () => {
         formData
       );
       if (response.status === 200) {
+        setLoggedIn(true); //Setting logged global state
         alert("User logged in successfully");
-        navigate("/appointments"); //Sending to appointments page if successful login
+        console.log("loggedIn context:", loggedIn);
       }
     } catch (error) {
       console.log(error);
       alert("Login failed");
     }
   };
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/appointments"); //Sending to appointments page if successful login or user already logged in
+    }
+  });
 
   return (
     <div className={styles.formContainer}>
@@ -50,7 +57,10 @@ const Login = () => {
             <Field type="password" name="password" required />
             <ErrorMessage name="password" component="div" />
 
-            <button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>
+            <button
+              type="submit"
+              disabled={isSubmitting || Object.keys(errors).length > 0}
+            >
               Login
             </button>
           </Form>
@@ -58,7 +68,10 @@ const Login = () => {
       </Formik>
 
       <p className={styles.registerLink}>
-        Don't have an account? <a href="/register"><strong>Register</strong></a>
+        Don't have an account?{" "}
+        <a href="/register">
+          <strong>Register</strong>
+        </a>
       </p>
     </div>
   );
