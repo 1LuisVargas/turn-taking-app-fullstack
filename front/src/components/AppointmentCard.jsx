@@ -6,7 +6,7 @@ const AppointmentCard = ({ appointment }) => {
     <div className={styles.appointmentCard}>
       <h2>Appointment Details</h2>
       <p>
-        <strong>Date:</strong> {appointment.date}
+        <strong>Date:</strong> {appointment.date.split("T")[0]}
       </p>
       <p>
         <strong>Time: </strong>

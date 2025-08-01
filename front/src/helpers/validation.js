@@ -24,6 +24,9 @@ export const validatingNewAppointment = (values) => {
   if (!values.date) {
     errors.date = "Required";
   }
+  else if (new Date(values.date) < new Date()) {
+    errors.date = "Date must be in the future";
+  }
   if (!values.time) {
     errors.time = "Required";
   }
