@@ -12,7 +12,7 @@ const NewAppointment = () => {
     //Defining handler
     try {
       const response = await axios.post(
-        "http://localhost:3000/appointments",
+        "http://localhost:3000/appointments/schedule",
         formData
       );
       if (response.status === 201) {
