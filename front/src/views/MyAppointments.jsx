@@ -11,21 +11,18 @@ const Appointments = () => {
   const navigate = useNavigate();
   const { loggedIn } = useContext(LoggedInContext);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      navigate("/login");
-    }
-  }, [loggedIn]);
-
   // Defining state
   const [myAppointments, setMyAppointments] = useState([]);
 
   // Fetching data from API
   useEffect(() => {
+    if (!loggedIn) {
+      navigate("/login");
+    }
     axios.get("http://localhost:3000/appointments").then((response) => {
       setMyAppointments(response.data.data);
     });
-  }, []);
+  }, [loggedIn, navigate]);
 
   return (
     <div>

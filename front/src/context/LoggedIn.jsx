@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const LoggedInContext = createContext({
   loggedIn: false,
@@ -6,7 +6,14 @@ export const LoggedInContext = createContext({
 });
 
 export const LoggedInProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(() => {
+    return localStorage.getItem("loggedIn") === "true";
+  });
+
+  //Maintaining the local storage in sync with the global state context
+  useEffect(() => {
+    localStorage.setItem("loggedIn", loggedIn ? "true" : "false");
+  }, [loggedIn]);
 
   const value = {
     loggedIn,

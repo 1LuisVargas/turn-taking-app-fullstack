@@ -56,7 +56,7 @@ const Register = () => {
             <ErrorMessage name="email" component="div" />
 
             <label>Birthdate:</label>
-            <Field type="text" name="birthdate" required />
+            <Field type="Date" name="birthdate" required />
             <ErrorMessage name="birthdate" component="div" />
 
             <label>Dni:</label>
