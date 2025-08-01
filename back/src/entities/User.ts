@@ -29,10 +29,8 @@ class User {
   })
   email: string;
 
-  @Column({
-    length: 10,
-  })
-  birthdate: string; //TODO: Change to Date
+  @Column()
+  birthdate: Date;
 
   @Column({
     type: "int",

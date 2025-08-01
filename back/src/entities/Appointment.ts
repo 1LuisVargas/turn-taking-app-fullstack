@@ -15,7 +15,7 @@ class Appointment {
   id: number;
 
   @Column()
-  date: string; //TODO: change to Date
+  date: Date;
 
   @Column({
     length: 5,
