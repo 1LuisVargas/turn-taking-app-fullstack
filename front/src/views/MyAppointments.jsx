@@ -3,8 +3,20 @@ import { useEffect, useState } from "react";
 import styles from "../modules/MyAppointments.module.css";
 import AppointmentCard from "../components/AppointmentCard";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { LoggedInContext } from "../context/LoggedIn.jsx";
 
 const Appointments = () => {
+  const navigate = useNavigate();
+  const { loggedIn } = useContext(LoggedInContext);
+
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate("/login");
+    }
+  }, [loggedIn]);
+
   // Defining state
   const [myAppointments, setMyAppointments] = useState([]);
 
