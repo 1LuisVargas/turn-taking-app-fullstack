@@ -30,5 +30,8 @@ export const validatingNewAppointment = (values) => {
   if (!values.time) {
     errors.time = "Required";
   }
+  else if(values.time < "09:00" || values.time > "21:00"){
+    errors.time = "Time must be between 9am and 9pm";
+  }
   return errors;
 };

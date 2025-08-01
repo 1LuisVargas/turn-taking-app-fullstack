@@ -44,12 +44,18 @@ const NewAppointment = () => {
             <div className={styles.formGroup}>
               <label>Date:</label>
               <Field type="date" name="date" />
-              <ErrorMessage name="date" component="div" className="error"/>
+              <ErrorMessage name="date" component="div" className="error" />
             </div>
             <div className={styles.formGroup}>
               <label>Time:</label>
-              <Field type="time" name="time" />
-              <ErrorMessage name="time" component="div" className="error" step/>
+              <Field
+                type="time"
+                name="time"
+                step="900"
+                min="09:00"
+                max="21:00"
+              />
+              <ErrorMessage name="time" component="div" className="error" />
               <button
                 type="submit"
                 disabled={isSubmitting || Object.keys(errors).length > 0}
