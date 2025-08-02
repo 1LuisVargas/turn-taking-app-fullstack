@@ -4,16 +4,26 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import styles from "../modules/NewAppointment.module.css";
 import { useNavigate } from "react-router-dom";
 import { validatingNewAppointment } from "../helpers/validation";
+import { useContext } from "react";
+import { LoggedInContext } from "../context/LoggedIn.jsx";
 
 const NewAppointment = () => {
   const navigate = useNavigate(); //Adding navigation
+  const { userID } = useContext(LoggedInContext); //Getting logged user ID
 
   const handleOnSubmit = async (formData) => {
+    const appointmentData = {
+      ...formData,
+      userId: userID, //Adding the user ID to the appointment
+    }
+
+    console.log(appointmentData);
+
     //Defining handler
     try {
       const response = await axios.post(
         "http://localhost:3000/appointments/schedule",
-        formData
+        appointmentData
       );
       if (response.status === 201) {
         alert("Appointment scheduled successfully");

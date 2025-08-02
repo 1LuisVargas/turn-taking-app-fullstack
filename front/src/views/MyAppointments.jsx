@@ -9,7 +9,7 @@ import { LoggedInContext } from "../context/LoggedIn.jsx";
 
 const Appointments = () => {
   const navigate = useNavigate();
-  const { loggedIn } = useContext(LoggedInContext);
+  const { loggedIn, userID } = useContext(LoggedInContext);
 
   // Defining state
   const [myAppointments, setMyAppointments] = useState([]);
@@ -19,10 +19,10 @@ const Appointments = () => {
     if (!loggedIn) {
       navigate("/login");
     }
-    axios.get("http://localhost:3000/appointments").then((response) => {
+    axios.get(`http://localhost:3000/appointments/user/${userID}`).then((response) => {
       setMyAppointments(response.data.data);
     });
-  }, [loggedIn, navigate]);
+  }, [loggedIn, navigate, userID]);
 
   return (
     <div>

@@ -7,7 +7,7 @@ import { LoggedInContext } from "../context/LoggedIn.jsx";
 import { useContext, useEffect } from "react";
 
 const Login = () => {
-  const { loggedIn, setLoggedIn } = useContext(LoggedInContext); //Getting logged global state
+  const { loggedIn, setLoggedIn, setUserID } = useContext(LoggedInContext); //Getting logged global state
   const navigate = useNavigate(); //Adding navigation
 
   const handleOnSubmit = async (formData) => {
@@ -18,9 +18,10 @@ const Login = () => {
         formData
       );
       if (response.status === 200) {
+        console.log(response.data);
         setLoggedIn(true); //Setting logged global state
+        setUserID(response.data.user.id);
         alert("User logged in successfully");
-        console.log("loggedIn context:", loggedIn);
       }
     } catch (error) {
       console.log(error);
@@ -31,7 +32,7 @@ const Login = () => {
     if (loggedIn) {
       navigate("/appointments"); //Sending to appointments page if successful login or user already logged in
     }
-  });
+  } , [loggedIn, navigate]);
 
   return (
     <div className={styles.formContainer}>
