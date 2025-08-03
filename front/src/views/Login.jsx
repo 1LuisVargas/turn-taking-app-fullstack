@@ -21,6 +21,7 @@ const Login = () => {
         console.log(response.data);
         setLoggedIn(true); //Setting logged global state
         setUserID(response.data.user.id);
+        localStorage.setItem("userID", response.data.token);
         alert("User logged in successfully");
       }
     } catch (error) {

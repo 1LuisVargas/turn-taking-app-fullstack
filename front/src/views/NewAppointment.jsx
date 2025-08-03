@@ -11,15 +11,14 @@ const NewAppointment = () => {
   const navigate = useNavigate(); //Adding navigation
   const { userID } = useContext(LoggedInContext); //Getting logged user ID
 
+  //Defining handler
   const handleOnSubmit = async (formData) => {
     const appointmentData = {
       ...formData,
       userId: userID, //Adding the user ID to the appointment
-    }
+    };
 
-    console.log(appointmentData);
-
-    //Defining handler
+    //Scheduling the new appointment
     try {
       const response = await axios.post(
         "http://localhost:3000/appointments/schedule",

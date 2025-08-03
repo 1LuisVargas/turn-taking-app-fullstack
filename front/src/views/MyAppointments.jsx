@@ -18,10 +18,13 @@ const Appointments = () => {
   useEffect(() => {
     if (!loggedIn) {
       navigate("/login");
+    } else if (userID) {
+      axios
+        .get(`http://localhost:3000/appointments/user/${userID}`)
+        .then((response) => {
+          setMyAppointments(response.data.data);
+        });
     }
-    axios.get(`http://localhost:3000/appointments/user/${userID}`).then((response) => {
-      setMyAppointments(response.data.data);
-    });
   }, [loggedIn, navigate, userID]);
 
   return (

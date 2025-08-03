@@ -2,6 +2,22 @@ import styles from "../modules/AppointmentCard.module.css";
 import axios from "axios";
 
 const AppointmentCard = ({ appointment }) => {
+  //Defining cancel handler
+  const handleCancel = () => {
+    //Canceling the appointment
+    axios
+      .put(`http://localhost:3000/appointments/cancel/${appointment.id}`, {
+        status: "cancelled",
+      })
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className={styles.appointmentCard}>
       <h2>Appointment Details</h2>
@@ -17,25 +33,9 @@ const AppointmentCard = ({ appointment }) => {
         {appointment.status}
       </p>
       {appointment.status === "active" ? (
-        <button
-          onClick={() =>
-            //Canceling the appointment
-            axios.put(
-              `http://localhost:3000/appointments/cancel/${appointment.id}`,
-              {
-                status: "cancelled",
-              }
-            ).then((response) => {
-              console.log(response);
-              window.location.reload();
-            }).catch((error) => {
-              console.log(error);
-            }
-            )
-          }
-        >
-          Cancel
-        </button>
+        <div>
+          <button onClick={handleCancel}>Cancel</button>
+        </div>
       ) : null}
     </div>
   );
