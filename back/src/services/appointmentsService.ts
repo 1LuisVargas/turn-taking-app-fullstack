@@ -55,3 +55,9 @@ export const createAppointment = async (appointment: ICreateAppointmentDTO) : Pr
     }
     return foundAppointment.id;
 }
+
+// Getting all appointments by user ID service
+export const getAppointmentsByUser = async (id: number) : Promise<Appointment[]> => {
+    const foundAppointments : Appointment[] = await appointmentRepository.find({where: {userId: id}}); //Finding all appointments by user ID
+    return foundAppointments;
+}

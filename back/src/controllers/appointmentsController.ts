@@ -5,6 +5,7 @@ import {
   getAppointmentByID,
   createAppointment,
   cancelAppointment,
+  getAppointmentsByUser,
 } from "../services/appointmentsService";
 import Appointment from "../entities/Appointment";
 
@@ -79,6 +80,25 @@ export const CancelAppointmentController = async (
         res.status(200).json({
             success: true,
             data: appointmentID,
+        });
+    } catch (error: any) {
+        res.status(404).json({
+            success: false,
+            error: error.message,
+        })
+    }
+}
+
+// Get appointments by user ID
+export const getAppointmentsByUserController = async (
+  req: Request,
+  res: Response
+) => {
+    try {
+        const appointments: Appointment[] = await getAppointmentsByUser(Number(req.params.id));
+        res.status(200).json({
+            success: true,
+            data: appointments,
         });
     } catch (error: any) {
         res.status(404).json({
