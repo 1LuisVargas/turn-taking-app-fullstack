@@ -1,5 +1,5 @@
 // Importing modules
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "../modules/MyAppointments.module.css";
 import AppointmentCard from "../components/AppointmentCard";
 import axios from "axios";
@@ -8,28 +8,34 @@ import { useContext } from "react";
 import { LoggedInContext } from "../context/LoggedIn.jsx";
 
 const Appointments = () => {
-  const navigate = useNavigate();
-  const { userID } = useContext(LoggedInContext);
-
+  const navigate = useNavigate(); //Adding navigation
+  
   // Defining state
+  const { userID } = useContext(LoggedInContext);
   const [myAppointments, setMyAppointments] = useState([]);
 
-  const getAppointments = async () => {
+  const getAppointments = useCallback( async () => {
     if (!userID) {
       navigate("/login");
-    } else {
+      return;
+    }
+    try {
       axios
         .get(`http://localhost:3000/appointments/user/${userID}`)
         .then((response) => {
           setMyAppointments(response.data.data);
         });
     }
-  };
+    catch (error) {
+      console.log(error);
+    }
+  }, [navigate, userID]);
+
   // Fetching data from API
   useEffect(() => {
     getAppointments();
-  }, [navigate, userID]);
-
+  }, [getAppointments]);
+  
   return (
     <div>
       <h1 className={styles.h1}>My Appointments</h1>
@@ -47,9 +53,9 @@ const Appointments = () => {
       <div className={styles.appointmentsContainer}>
         {myAppointments.map((appointment) => (
           <AppointmentCard
-            key={appointment.id}
-            appointment={appointment}
-            onStatusChange={getAppointments}
+          key={appointment.id}
+          appointment={appointment}
+          onStatusChange={getAppointments}
           />
         ))}
       </div>
