@@ -9,23 +9,26 @@ import { LoggedInContext } from "../context/LoggedIn.jsx";
 
 const Appointments = () => {
   const navigate = useNavigate();
-  const { loggedIn, userID } = useContext(LoggedInContext);
+  const { userID } = useContext(LoggedInContext);
 
   // Defining state
   const [myAppointments, setMyAppointments] = useState([]);
 
-  // Fetching data from API
-  useEffect(() => {
-    if (!loggedIn) {
+  const getAppointments = async () => {
+    if (!userID) {
       navigate("/login");
-    } else if (userID) {
+    } else {
       axios
         .get(`http://localhost:3000/appointments/user/${userID}`)
         .then((response) => {
           setMyAppointments(response.data.data);
         });
     }
-  }, [loggedIn, navigate, userID]);
+  };
+  // Fetching data from API
+  useEffect(() => {
+    getAppointments();
+  }, [navigate, userID]);
 
   return (
     <div>
@@ -43,7 +46,11 @@ const Appointments = () => {
       </div>
       <div className={styles.appointmentsContainer}>
         {myAppointments.map((appointment) => (
-          <AppointmentCard key={appointment.id} appointment={appointment} />
+          <AppointmentCard
+            key={appointment.id}
+            appointment={appointment}
+            onStatusChange={getAppointments}
+          />
         ))}
       </div>
     </div>

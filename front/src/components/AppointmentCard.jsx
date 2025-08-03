@@ -1,7 +1,8 @@
 import styles from "../modules/AppointmentCard.module.css";
 import axios from "axios";
 
-const AppointmentCard = ({ appointment }) => {
+
+const AppointmentCard = ({ appointment, onStatusChange }) => {
   //Defining cancel handler
   const handleCancel = () => {
     //Canceling the appointment
@@ -11,7 +12,7 @@ const AppointmentCard = ({ appointment }) => {
       })
       .then((response) => {
         console.log(response);
-        window.location.reload();
+        onStatusChange();
       })
       .catch((error) => {
         console.log(error);
