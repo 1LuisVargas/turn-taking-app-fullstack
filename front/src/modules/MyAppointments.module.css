@@ -4,14 +4,19 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+
+    & h2 {
+        text-align: center;
+        margin: 20px;
+    }
 }
 
-.h1 {
+.noAppointments{
     text-align: center;
     margin: 20px;
-}
 
-.newAppointment{
-    text-align: center;
-    margin: 20px;
+    & h2 {
+        text-align: center;
+        margin: 20px;
+    }
 }

@@ -21,7 +21,7 @@ const AppointmentCard = ({ appointment, onStatusChange }) => {
 
   return (
     <div className={styles.appointmentCard}>
-      <h2>Appointment Details</h2>
+      <h3>Appointment Details</h3>
       <p>
         <strong>Date:</strong> {appointment.date.split("T")[0]}
       </p>
