@@ -2,7 +2,7 @@ import Home from "./views/Home";
 import NavBar from "./components/NavBar";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import ErrorPage from "./components/ErrorPage";
+import ErrorPage from "./views/ErrorPage";
 import { Routes, Route } from "react-router-dom";
 import MyAppointments from "./views/MyAppointments";
 import NewAppointment from "./views/NewAppointment";

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom";
+import styles from "../modules/ErrorPage.module.css";
 
 const ErrorPage = () => {
     const [timer, setTimer] = useState(5);
@@ -12,14 +13,14 @@ const ErrorPage = () => {
 
         setTimeout(() => {
             clearInterval(interval);
-            navigate("/home");
+            navigate("/");
         }, 5000);
 
         return () => clearInterval(interval);
     }, [navigate]);
 
     return (
-        <div>
+        <div className={styles.errorContainer}>
             <h1>404 - Page Not Found</h1>
             <p>Redirecting in {timer} seconds...</p>
         </div>
