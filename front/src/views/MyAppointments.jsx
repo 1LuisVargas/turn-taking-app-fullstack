@@ -15,15 +15,28 @@ const Appointments = () => {
   const [myAppointments, setMyAppointments] = useState([]);
 
   const getAppointments = useCallback(async () => {
+    //Checking if user is logged in
     if (!userID) {
       navigate("/login");
       return;
     }
+
+    //Fetching data from local storage
+    const storedAppointments = localStorage.getItem("appointments");
+    if (storedAppointments) {
+      setMyAppointments(JSON.parse(storedAppointments));
+    }
+
+    // Fetching data from API
     try {
       axios
         .get(`http://localhost:3000/appointments/user/${userID}`)
         .then((response) => {
           setMyAppointments(response.data.data);
+          localStorage.setItem(
+            "appointments",
+            JSON.stringify(response.data.data)
+          ); //Saving appointments in local storage
         });
     } catch (error) {
       console.log(error);
@@ -52,15 +65,17 @@ const Appointments = () => {
         </div>
       ) : (
         <div>
-          <h2 style={{ textAlign: "center" , margin: "20px"}}>My Appointments</h2>
+          <h2 style={{ textAlign: "center", margin: "20px" }}>
+            My Appointments
+          </h2>
           <div className={styles.appointmentsContainer}>
-          {myAppointments.map((appointment) => (
-            <AppointmentCard
-            key={appointment.id}
-            appointment={appointment}
-            onStatusChange={getAppointments}
-            />
-          ))}
+            {myAppointments.map((appointment) => (
+              <AppointmentCard
+                key={appointment.id}
+                appointment={appointment}
+                onStatusChange={getAppointments}
+              />
+            ))}
           </div>
         </div>
       )}

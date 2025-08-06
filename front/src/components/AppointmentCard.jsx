@@ -11,8 +11,9 @@ const AppointmentCard = ({ appointment, onStatusChange }) => {
         status: "cancelled",
       })
       .then((response) => {
-        console.log(response);
-        onStatusChange();
+        console.log("Appointment cancelled:", response.data);
+        localStorage.removeItem("appointments"); //Clearing local storage to force update
+        onStatusChange(); //Updating the status
       })
       .catch((error) => {
         console.log(error);
