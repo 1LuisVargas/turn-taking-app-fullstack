@@ -1,7 +1,6 @@
 import styles from "../modules/AppointmentCard.module.css";
 import axios from "axios";
 
-
 const AppointmentCard = ({ appointment, onStatusChange }) => {
   //Defining cancel handler
   const handleCancel = () => {
@@ -31,8 +30,7 @@ const AppointmentCard = ({ appointment, onStatusChange }) => {
         {appointment.time}
       </p>
       <p>
-        <strong>Status: </strong>
-        {appointment.status}
+        <strong>Status:</strong> <span style={{ color: appointment.status === "Active" ? "green" : "red"}}>{appointment.status}</span>
       </p>
       {appointment.status === "Active" ? (
         <div>
