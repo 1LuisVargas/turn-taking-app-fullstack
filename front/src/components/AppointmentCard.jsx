@@ -34,7 +34,7 @@ const AppointmentCard = ({ appointment, onStatusChange }) => {
         <strong>Status: </strong>
         {appointment.status}
       </p>
-      {appointment.status === "active" ? (
+      {appointment.status === "Active" ? (
         <div>
           <button onClick={handleCancel}>Cancel</button>
         </div>
