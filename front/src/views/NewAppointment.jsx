@@ -60,7 +60,7 @@ const NewAppointment = () => {
               <Field
                 type="time"
                 name="time"
-                step="900"
+                step="1800"
                 min="09:00"
                 max="21:00"
               />

@@ -1,18 +1,19 @@
 // Importing modules
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import styles from "../modules/MyAppointments.module.css";
 import AppointmentCard from "../components/AppointmentCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedInContext } from "../context/LoggedIn.jsx";
+import { AppointmentsContext } from "../context/Appointments.jsx";
 
 const Appointments = () => {
   const navigate = useNavigate(); //Adding navigation
 
   // Defining state
   const { userID } = useContext(LoggedInContext);
-  const [myAppointments, setMyAppointments] = useState([]);
+  const { appointments, setAppointments } = useContext(AppointmentsContext);
 
   const getAppointments = useCallback(async () => {
     //Checking if user is logged in
@@ -24,7 +25,7 @@ const Appointments = () => {
     //Fetching data from local storage
     const storedAppointments = localStorage.getItem("appointments");
     if (storedAppointments) {
-      setMyAppointments(JSON.parse(storedAppointments));
+      setAppointments(JSON.parse(storedAppointments));
     }
 
     // Fetching data from API
@@ -32,7 +33,7 @@ const Appointments = () => {
       axios
         .get(`http://localhost:3000/appointments/user/${userID}`)
         .then((response) => {
-          setMyAppointments(response.data.data);
+          setAppointments(response.data.data);
           localStorage.setItem(
             "appointments",
             JSON.stringify(response.data.data)
@@ -41,7 +42,7 @@ const Appointments = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [navigate, userID]);
+  }, [ navigate, userID, setAppointments]);
 
   // Fetching data from API
   useEffect(() => {
@@ -50,7 +51,7 @@ const Appointments = () => {
 
   return (
     <div>
-      {myAppointments.length === 0 ? (
+      {appointments.length === 0 ? (
         <div className={styles.noAppointments}>
           <h2>No appointments found</h2>
           <p>
@@ -69,7 +70,7 @@ const Appointments = () => {
             My Appointments
           </h2>
           <div className={styles.appointmentsContainer}>
-            {myAppointments.map((appointment) => (
+            {appointments.map((appointment) => (
               <AppointmentCard
                 key={appointment.id}
                 appointment={appointment}
