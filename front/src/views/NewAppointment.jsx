@@ -49,7 +49,7 @@ const NewAppointment = () => {
         }}
       >
         {({ isSubmitting, errors }) => (
-          <Form>
+          <Form className={styles.form}>
             <div className={styles.formGroup}>
               <label>Date:</label>
               <Field type="date" name="date" />
