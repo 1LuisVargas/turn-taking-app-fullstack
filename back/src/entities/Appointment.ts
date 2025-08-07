@@ -4,8 +4,8 @@ import User from "./User";
 
 //Created the enum for status
 export enum appointmentStatus {
-  ACTIVE = "active",
-  CANCELLED = "cancelled",
+  ACTIVE = "Active",
+  CANCELLED = "Cancelled",
 }
 
 //Created new appointment entity
