@@ -162,12 +162,6 @@ The frontend will be available at `http://localhost:5173` (Vite's default port).
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
 ## 👤 Author
 
 **Luis Vargas**
