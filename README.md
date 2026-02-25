@@ -166,3 +166,4 @@ The frontend will be available at `http://localhost:5173` (Vite's default port).
 
 **Luis Vargas**
 - GitHub: [@1LuisVargas](https://github.com/1LuisVargas)
+- LinkedIn: [1LuisVargas](https://www.linkedin.com/in/1luisvargas/)
